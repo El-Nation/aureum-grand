@@ -1,0 +1,15 @@
+# Aureum Hotel Platform — root .htaccess
+# Protects sensitive folders from direct web access on Apache servers.
+# (If you're on Nginx, add equivalent "deny" rules in your server block instead.)
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Block direct access to config, includes, and sql folders
+  RewriteRule ^config/ - [F,L]
+  RewriteRule ^includes/ - [F,L]
+  RewriteRule ^sql/ - [F,L]
+</IfModule>
+
+# Disable directory listing
+Options -Indexes
