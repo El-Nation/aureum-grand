@@ -5,10 +5,7 @@
 # -----------------------------------------------------------------------------
 # Sensitive / Environment Config
 # -----------------------------------------------------------------------------
-config/db.php
-config/config.php
-config/*.env
-config/*-local.php
+config/
 .env
 .env.*
 *.local.php
