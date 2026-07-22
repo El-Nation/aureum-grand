@@ -8,8 +8,10 @@
 config/db.php
 config/config.php
 config/*.env
+config/*-local.php
 .env
 .env.*
+*.local.php
 
 # -----------------------------------------------------------------------------
 # XAMPP / PHP Logs

@@ -46,7 +46,7 @@ account credentials pasted in to go live:
 | Email notifications | Code ready, tested | Any SMTP provider (Gmail, SendGrid, Mailgun…) | `config/email.php` |
 | SMS notifications | Code ready | A Twilio account | `config/sms.php` |
 | WhatsApp notifications | Code ready | A Meta Business / WhatsApp Cloud API account | `config/whatsapp.php` |
-| AI Concierge (live chat widget on every page) | Code ready | An Anthropic API key | `config/ai-concierge.php` |
+| AI Concierge (live chat widget on every page) | ✅ **Fully working right now** | A Groq API key (free, works in Nigeria) | `config/ai-concierge.php` |
 | OTA Sync (Booking.com / Expedia) | Admin UI ready, sync itself needs a 3rd party | A paid channel manager (SiteMinder, Cloudbeds, etc.) — this is an OTA requirement, not a code gap | `admin/ota-sync.php` |
 
 Visit **Admin Console → Integrations** (Administrator role) for a live
@@ -56,13 +56,14 @@ channel-mapping tool.
 ### Two-Factor Authentication — already works, no setup needed
 This is implemented from scratch in pure PHP (RFC 6238 TOTP — no external
 library, no Composer needed) and is compatible with Google Authenticator,
-Authy, and 1Password. Any staff member can turn it on right now from
+Proauthenticator, Authy, and 1Password. Any staff member can turn it on right now from
 **Security (2FA)** in their sidebar: scan the QR code, enter the 6-digit
 code to confirm, and from then on login requires both their password and
 their authenticator app.
 
 ### AI Concierge — what it does once you add a key
 A chat widget appears in the bottom-right corner of every public page. It
+is powered by **Groq** using the **Llama 3.1 8B Instant** model (fast responses, high free tier limits, works globally including Nigeria). It
 automatically pulls your live room categories, pricing, and descriptions
 from the database into its instructions, so its answers stay accurate as
 you update your inventory — no separate knowledge base to maintain.
@@ -139,6 +140,19 @@ database via cPanel, import `sql/schema.sql` via phpMyAdmin, and update
 
 ---
 
+## 4.1. Activating AI Concierge (Groq API)
+
+1. Sign up for a free account at [console.groq.com](https://console.groq.com).
+2. Go to **API Keys** and click **Create API Key**.
+3. Open `config/ai-concierge.php` and replace:
+   ```php
+   define('GROQ_API_KEY', 'PASTE_YOUR_GROQ_API_KEY_HERE');
+   ```
+   with your real key.
+4. The live chat assistant on the website will be activated instantly using `llama-3.1-8b-instant`.
+
+---
+
 ## 5. Folder structure
 
 ```
@@ -157,7 +171,7 @@ database via cPanel, import `sql/schema.sql` via phpMyAdmin, and update
 │   ├── email.php              → ← edit your SMTP credentials here
 │   ├── sms.php                 → ← edit your Twilio credentials here
 │   ├── whatsapp.php             → ← edit your Meta credentials here
-│   └── ai-concierge.php          → ← edit your Anthropic API key here
+│   └── ai-concierge.php          → ← edit your Groq API key here
 ├── guest/                    → guest account pages
 ├── includes/
 │   ├── functions.php          → core booking/pricing logic
