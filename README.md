@@ -61,7 +61,7 @@ Proauthenticator, Authy, and 1Password. Any staff member can turn it on right no
 code to confirm, and from then on login requires both their password and
 their authenticator app.
 
-### AI Concierge — what it does once you add a key
+### AI Concierge — Active & Working
 A chat widget appears in the bottom-right corner of every public page. It
 is powered by **Groq** using the **Llama 3.1 8B Instant** model (fast responses, high free tier limits, works globally including Nigeria). It
 automatically pulls your live room categories, pricing, and descriptions
