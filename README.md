@@ -1,5 +1,8 @@
 # Aureum Grand — Luxury Hotel Management & Booking Platform
 
+**Live Demo**: [aureumgrand.eghedev.com](https://aureumgrand.eghedev.com)  
+**Developer**: Built by [El-Nation](https://github.com/El-Nation)
+
 A working foundation for a hotel management and booking system, built with
 plain PHP (PDO + MySQL), vanilla JavaScript, and HTML/CSS — no framework
 required. Built from a large feature brief (14 modules); this delivers the
@@ -70,57 +73,65 @@ you update your inventory — no separate knowledge base to maintain.
 
 ---
 
-## 3. Setup instructions
+## 3. Setup & Installation Guide
 
-### Requirements
-- PHP 8.0+ with the `pdo_mysql` extension
-- MySQL 5.7+ or MariaDB 10.3+
-- Any web server (Apache, Nginx) **or** just PHP's built-in server for testing
+Follow these steps to deploy and run Aureum Grand on your local environment or live production server.
 
-### Step 1 — Import the database
-1. Create a database (or let the script do it — see below).
-2. Import the schema:
-   ```bash
-   mysql -u root -p < sql/schema.sql
-   ```
-   This creates the `aureum_hotel` database, all tables, and seeds sample
-   data: 1 property, 4 room categories, 10 physical rooms, 3 pricing rules,
-   and 3 staff accounts.
+### Prerequisites
+* **PHP**: 8.0 or higher (requires `pdo_mysql`, `curl`, and `session` extensions enabled)
+* **Database**: MySQL 5.7+ or MariaDB 10.3+
+* **Server**: Apache, Nginx, XAMPP/WAMP, or PHP's built-in CLI server
 
-### Step 2 — Set your database credentials
-Open `config/database.php` and edit these four lines:
+---
+
+### Local Installation Guide (XAMPP)
+
+Follow these steps to set up the website locally using XAMPP:
+
+#### Step 1: Clone the Repository
+Open Git Bash or your terminal, navigate to your XAMPP `htdocs` directory, and clone the repository:
+```bash
+cd C:\xampp\htdocs
+git clone https://github.com/El-Nation/aureum-grand.git hotel_website
+```
+*(This creates a folder named `hotel_website` inside your XAMPP `htdocs` folder).*
+
+#### Step 2: Import the Database
+1. Open the XAMPP Control Panel and start **Apache** and **MySQL**.
+2. Open your web browser and go to `http://localhost/phpmyadmin/`.
+3. Click on **New** in the left sidebar to create a new database.
+4. Set the Database name to `aureum_hotel` and click **Create**.
+5. Select the `aureum_hotel` database, click the **Import** tab at the top.
+6. Click **Choose File**, select the [`sql/schema.sql`](file:///c:/xampp/htdocs/hotel_website/sql/schema.sql) file from the cloned project folder, and click **Import** (or **Go**).
+   * *Alternatively, via command line:*
+     ```bash
+     mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS aureum_hotel;"
+     mysql -u root -p aureum_hotel < C:\xampp\htdocs\hotel_website\sql\schema.sql
+     ```
+
+#### Step 3: Configure Database Credentials
+Open [`config/database.php`](file:///c:/xampp/htdocs/hotel_website/config/database.php) and update it with your local XAMPP database credentials:
 ```php
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'aureum_hotel');
-define('DB_USER', 'root');        // your MySQL username
-define('DB_PASS', '');            // your MySQL password
+define('DB_USER', 'root'); // default XAMPP username
+define('DB_PASS', '');     // default XAMPP password is empty
 ```
 
-### Step 3 — Run it
-**Option A — Quick local test (PHP's built-in server):**
-```bash
-php -S localhost:8080
-```
-Then visit `http://localhost:8080/`
+#### Step 4: Open in Browser
+Make sure Apache is running in XAMPP, and open the site in your browser:
+* **Public Booking Website**: `http://localhost/hotel_website/`
+* **Admin Dashboard**: `http://localhost/hotel_website/admin/login.php`
 
-**Option B — XAMPP / WAMP / MAMP:**
-Copy the whole folder into your `htdocs` (or `www`) directory, then visit
-`http://localhost/aureum-hotel/`
+---
 
-**Option C — Shared hosting (cPanel etc.):**
-Upload everything to your `public_html` (or a subfolder), create a MySQL
-database via cPanel, import `sql/schema.sql` via phpMyAdmin, and update
-`config/database.php` with the credentials cPanel gives you.
+### Step 5: Staff Login Credentials
+To sign into the admin portal, use these credentials:
+* **Admin Email**: `admin@aureumgrand.com`
+* **Admin Password**: `Aureum2026!`
 
-### Step 4 — Log in
-- **Guest side**: `/guest/register.php` to create a new account, or browse
-  rooms and book as a guest without an account.
-- **Staff console**: go to `/admin/login.php`
-  - Email: `admin@aureumgrand.com`
-  - Password: `Aureum2026!`
-  - *(Change this password before putting the site anywhere public — see
-    the comment at the top of `admin/login.php` for how to generate a new
-    hash.)*
+> [!WARNING]
+> Remember to change the administrator password before going live for security.
 
 ---
 
